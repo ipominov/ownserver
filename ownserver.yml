@@ -1,0 +1,21 @@
+---
+
+- hosts: ownserver
+
+  vars_prompt:
+    - name: os_new_pass    
+      prompt: "Enter a password for new non-root user"    
+      private: no    
+      encrypt: "md5_crypt"     
+      confirm: yes    
+      salt_size: 7
+
+  roles:
+    - prepare
+    - kernel
+    - users
+    - docker 
+    - wireguard
+    - tgproxy
+    - firewall
+    - ssh    

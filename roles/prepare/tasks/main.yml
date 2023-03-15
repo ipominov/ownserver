@@ -1,0 +1,23 @@
+---
+
+- name: set hostname
+  hostname:
+    name: "{{ hostname }}"
+
+- name: edit /etc/hostname
+  lineinfile:
+    path: /etc/hosts
+    line: "127.0.0.1 {{ hostname }}"
+
+- name: Update apt cache and all packages
+  apt:
+    name: 
+      - curl
+      - htop
+      - iptables
+      - sudo
+      - apt-transport-https
+      - ca-certificates
+      - resolvconf
+    state: present
+    update_cache: yes

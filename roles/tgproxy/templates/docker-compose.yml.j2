@@ -1,0 +1,17 @@
+version: "3.1"
+
+networks:
+  tgproxy:
+
+services:
+
+  mtproto:
+    image: telegrammessenger/proxy:latest
+    container_name: mtproto
+    volumes:
+      - {{ tgroxy_appdir }}/data:/data
+    ports:
+      - {{ tgproxy_port }}:443
+    networks:
+      - tgproxy
+    restart: always

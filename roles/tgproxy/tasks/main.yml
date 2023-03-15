@@ -1,0 +1,48 @@
+---
+
+- name: create directory for tgproxy container
+  file:
+    path: "{{ tgroxy_appdir }}"
+    state: directory
+    owner: "{{ os_new_user }}"
+    group: "{{ os_new_user }}"
+    mode: '0700'
+
+- name: create tgproxy compose file
+  template:
+    src: docker-compose.yml.j2
+    dest: "{{ tgroxy_appdir }}/docker-compose.yml"
+
+- name: create tgproxy data dir
+  file:
+    path: "{{ tgroxy_appdir }}/data"
+    state: directory
+    owner: "{{ os_new_user }}"
+    group: "{{ os_new_user }}"
+    mode: '0700'
+
+- name: create secret file 1
+  template:
+    src: secret.j2
+    dest: "{{ tgroxy_appdir }}/data/secret"
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: create secret file 2
+  template:
+    src: secret_cmd.j2
+    dest: "{{ tgroxy_appdir }}/data/secret_cmd"
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: stop tgproxy if running
+  docker_compose:
+    project_src: "{{ tgroxy_appdir }}"
+    state: absent
+
+- name: Create and start services
+  docker_compose:
+    project_src: "{{ tgroxy_appdir }}"
+

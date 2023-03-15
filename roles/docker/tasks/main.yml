@@ -1,0 +1,22 @@
+---
+
+- name: install docker
+  apt:
+    name: 
+      - docker
+      - docker.io
+      - docker-compose
+    state: present
+
+- name: Add new none-root user to docker group
+  user:
+    name: "{{ os_new_user }}"
+    groups: docker,sudo
+
+- name: create directory for docker apps
+  file:
+    path: /opt/docker
+    state: directory
+    owner: "{{ os_new_user }}"
+    group: "{{ os_new_user }}"
+    mode: '0700'

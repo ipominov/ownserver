@@ -1,0 +1,19 @@
+---
+
+- name: install wireguard server
+  apt:
+    name: 
+      - wireguard
+      - resolvconf
+    state: present
+    
+- name: create wireguard config
+  template:
+    src: wg0.conf.j2
+    dest: /etc/wireguard/wg0.conf
+
+- name: Start wireguard with default config
+  systemd:
+    name: wg-quick@wg0
+    state: started
+    enabled: yes

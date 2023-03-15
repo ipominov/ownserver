@@ -1,0 +1,41 @@
+---
+
+- name: Check if new user is already exists
+  stat:
+    path: "/home/{{ os_new_user }}"
+  register: new_user_home
+
+- name: add non-root user
+  user:
+    name: "{{ os_new_user }}"
+    password: "{{ os_new_pass }}"
+    shell: /bin/bash
+    groups: sudo
+    append: yes
+  when: not new_user_home.stat.exists
+
+- name: Create .ssh directory
+  file:
+    path: "/home/{{ os_new_user }}/.ssh"
+    state: directory
+    owner: "{{ os_new_user }}"
+    group: "{{ os_new_user }}"
+    mode: '0700'
+
+- name: create file for ssh key
+  file:
+    path: "/home/{{ os_new_user }}/.ssh/authorized_keys"
+    state: touch
+    owner: "{{ os_new_user }}"
+    group: "{{ os_new_user }}"
+    mode: '0600'
+
+- name: copy ssh pub key
+  lineinfile:
+    path: "/home/{{ os_new_user }}/.ssh/authorized_keys"
+    line: "{{ ssh_key }}"
+
+- name: enable ll alias
+  lineinfile:
+    path: "/home/{{ os_new_user }}/.bashrc"
+    line: alias ll='ls -la'

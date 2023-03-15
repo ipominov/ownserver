@@ -1,0 +1,17 @@
+#!/bin/bash
+
+iptables -F
+
+iptables -P INPUT DROP
+iptables -P FORWARD DROP
+iptables -P OUTPUT ACCEPT
+
+iptables -A INPUT -i lo -j ACCEPT
+iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+iptables -A INPUT -p TCP --dport {{ tgproxy_port }} -j ACCEPT
+iptables -A INPUT -p TCP --dport {{ ssh_port }} -j ACCEPT
+iptables -A INPUT -p UDP --dport {{ wg_listen_port }} -j ACCEPT
+
+
+iptables -A FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT
