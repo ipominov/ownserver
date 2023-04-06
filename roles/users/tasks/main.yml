@@ -21,6 +21,7 @@
     owner: "{{ os_new_user }}"
     group: "{{ os_new_user }}"
     mode: '0700'
+  when: not new_user_home.stat.exists
 
 - name: create file for ssh key
   file:
@@ -29,13 +30,16 @@
     owner: "{{ os_new_user }}"
     group: "{{ os_new_user }}"
     mode: '0600'
+  when: not new_user_home.stat.exists
 
 - name: copy ssh pub key
   lineinfile:
     path: "/home/{{ os_new_user }}/.ssh/authorized_keys"
     line: "{{ ssh_key }}"
+  when: not new_user_home.stat.exists
 
 - name: enable ll alias
   lineinfile:
     path: "/home/{{ os_new_user }}/.bashrc"
     line: alias ll='ls -la'
+  when: not new_user_home.stat.exists
