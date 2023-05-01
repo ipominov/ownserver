@@ -1,7 +1,7 @@
 ---
 
 hostname:         "ownserver"
-os_new_user:      "******"
+os_new_user:      "*******"
 
 ssh_key:          "******"
 ssh_port:         "******"
