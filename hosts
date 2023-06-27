@@ -1,4 +1,4 @@
 [ownserver]
-ownserver1     ansible_host=194.31.174.174 ansible_user="root" ansible_password="QLHjJ2bz#"
+ownserver1     ansible_host=194.31.174.174 ansible_user="root" ansible_password="******"
 
 [ownserver:vars]
