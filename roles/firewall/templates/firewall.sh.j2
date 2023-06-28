@@ -10,7 +10,9 @@ iptables -A INPUT -i lo -j ACCEPT
 iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
 
 iptables -A INPUT -p TCP --dport {{ tgproxy_port }} -j ACCEPT
-iptables -A INPUT -p TCP --dport {{ ssh_port }} -j ACCEPT
+iptables -A INPUT --src {{ homeip }} -p TCP --dport {{ ssh_port }} -j ACCEPT
+iptables -A INPUT --src {{ homeip }} -p TCP --dport {{ nodexporter_port }} -j ACCEPT
+iptables -A INPUT --src {{ homeip }} -p TCP --dport {{ procexporter_port }} -j ACCEPT
 iptables -A INPUT -p UDP --dport {{ wg_listen_port }} -j ACCEPT
 
 

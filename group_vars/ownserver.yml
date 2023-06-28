@@ -1,18 +1,22 @@
 ---
 
-hostname:         "ownserver"
-os_new_user:      "******"
+hostname:           "ownserver"
+os_new_user:        "******"
 
-ssh_key:          "******"
-ssh_port:         "******"
+ssh_key:            "******"
+ssh_port:           "******"
 
-wg_listen_port:   "******"
-wg_in_net:        "192.168.10"
-wg_srv_priv_key:  "******"
-wg_srv_pub_key:   "******"
-wg_cl1_priv_key:  "******"
-wg_cl1_pub_key:   "******"
+wg_listen_port:     "******"
+wg_in_net:          "192.168.10"
+wg_srv_priv_key:    "******"
+wg_srv_pub_key:     "******"
+wg_cl1_priv_key:    "******"
+wg_cl1_pub_key:     "******"
 
-tgproxy_port:     "******"
-tgroxy_appdir:    "/opt/docker/mtprotoproxy"
-tgproxy_secret:   "******"
+tgproxy_port:       "******"
+tgroxy_appdir:      "/opt/docker/mtprotoproxy"
+tgproxy_secret:     "******"
+
+homeip:             "******"
+nodexporter_port:   "9100"
+procexporter_port:  "9256"

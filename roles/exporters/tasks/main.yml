@@ -1,0 +1,21 @@
+---
+
+- name: install node_exporter
+  apt:
+    name: prometheus-node-exporter
+
+- name: enable node_exporter service
+  systemd:
+    name: prometheus-node-exporter
+    state: started
+    enabled: yes
+
+- name: install process_exporter
+  apt:
+    name: prometheus-process-exporter
+
+- name: enable process_exporter service
+  systemd:
+    name: prometheus-process-exporter
+    state: started
+    enabled: yes
